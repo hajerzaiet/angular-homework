@@ -1,0 +1,10 @@
+<h2>List of Suggestions</h2>
+
+<div *ngFor="let s of suggestions" class="card">
+  <h3>{{ s.title }}</h3>
+  <p>{{ s.description }}</p>
+  <p><strong>Category:</strong> {{ s.category }}</p>
+  <p><strong>Date:</strong> {{ s.date | date }}</p>
+  <p><strong>Status:</strong> {{ s.status }}</p>
+  <hr />
+</div>
