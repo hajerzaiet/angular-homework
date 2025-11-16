@@ -1,11 +1,30 @@
 import { Component } from '@angular/core';
 import { Suggestion } from '../../models/suggestion';
+
 @Component({
   selector: 'app-list-suggestion',
   templateUrl: './list-suggestion.component.html',
   styleUrl: './list-suggestion.component.css'
 })
 export class ListSuggestionComponent {
+searchTitle: string = '';
+searchCategory: string = '';
+likes: { [key: number]: number } = {};
+favorites: Suggestion[] = [];
+constructor() {
+  this.suggestions.forEach(s => {
+    this.likes[s.id] = 0;
+  });
+}
+like(id: number) {
+  this.likes[id]++;
+}
+
+addToFavorites(s: Suggestion) {
+  if (!this.favorites.includes(s)) {
+    this.favorites.push(s);
+  }
+}
 suggestions: Suggestion[] = [
     {
       id: 1,

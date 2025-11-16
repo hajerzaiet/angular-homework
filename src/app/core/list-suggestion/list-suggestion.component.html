@@ -1,10 +1,48 @@
+<h2>Search Suggestions</h2>
+
+<input
+  type="text"
+  placeholder="Search by title"
+  [(ngModel)]="searchTitle"
+/>
+
+<input
+  type="text"
+  placeholder="Search by category"
+  [(ngModel)]="searchCategory"
+/>
+
+<hr />
+
+
 <h2>List of Suggestions</h2>
 
-<div *ngFor="let s of suggestions" class="card">
+<div *ngFor="let s of suggestions" class="card"
+     [hidden]="
+        (searchTitle && !s.title.toLowerCase().includes(searchTitle.toLowerCase())) ||
+        (searchCategory && !s.category.toLowerCase().includes(searchCategory.toLowerCase()))
+     ">
+
   <h3>{{ s.title }}</h3>
   <p>{{ s.description }}</p>
   <p><strong>Category:</strong> {{ s.category }}</p>
   <p><strong>Date:</strong> {{ s.date | date }}</p>
   <p><strong>Status:</strong> {{ s.status }}</p>
+
+  <!-- Buttons shown only if NOT refused -->
+  <div *ngIf="s.status !== 'refusee'">
+    <button (click)="like(s.id)">Like ({{ likes[s.id] }})</button>
+    <button (click)="addToFavorites(s)">Add to favorites</button>
+  </div>
+
   <hr />
 </div>
+
+<!-- Show favorites list -->
+<h2>Favorites</h2>
+<ul>
+  <li *ngFor="let f of favorites">
+    {{ f.title }}
+  </li>
+</ul>
+
